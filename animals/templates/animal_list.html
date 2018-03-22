@@ -1,0 +1,19 @@
+{% include "base.html" %}
+
+{% block content %}
+
+{% for obj in object_list %}
+
+
+{{ obj.category }}
+{{ obj.description }}<!-- , {{ obj.age }}, {{ obj.gender }} --> 
+<!-- {% if obj.photo %}
+<img src="{{ obj.photo.url }}" alt="5" border="4" height="100"> </img>
+{% endif %} -->
+
+    
+
+
+
+{% endfor %}
+{% endblock content %}

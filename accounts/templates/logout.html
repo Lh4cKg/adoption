@@ -1,0 +1,11 @@
+{% include "base.html" %}
+
+{% block content %}
+<div align="center"><form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="login" /><br />
+    <a href='{% url "accounts:register" %}'">Register an Account</a>
+    
+</form></div>
+{% endblock %}

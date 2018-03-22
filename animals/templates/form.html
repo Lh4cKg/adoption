@@ -1,11 +1,16 @@
+{% include "base.html" %}
 
+{% block content %}
 {% if form.error.non_field_errors %}
 {{ form.errors.non_field_errors }}
 {% endif %}
 
-<form method="POST">{% csrf_token %}
+<div align="center"> <form method="POST">{% csrf_token %}
 	
 	{{ form.as_p }}
 	<button type="submit">Save</button>
 
 </form>
+</div>
+
+{% endblock content %}
