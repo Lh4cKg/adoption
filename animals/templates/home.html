@@ -2,20 +2,23 @@
 
 
 {% block content %}
-
-
 <html>
 <body>
+	
 
 <div align="center"><h2 >Add animal for adoption bellow</h2>
-	<a href="{% url 'animals:create' %}">Add a pet</a>
+	<button type="button" class="button"><a href="{% url 'animals:create' %}">Add a pet</a></button>
+	
 	<p>OR</p>
 	<h2>Find you pet friend </h2>
-	<a href="#">Find a pet</a>
+	<button type="button" class="button"><a href="{% url 'animals:list' %}">Find a pet</a></button>
+	
 
 
 
-</div>
+ 
+  </div>
+
 </body>
 </html>
 {% endblock content %}

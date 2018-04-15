@@ -1,0 +1,15 @@
+{% include "base.html" %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% load i18n %}
+
+{% block content %}
+{% endblock %}
+{% block sidebar %}
+<ul class="subnavilist">
+    <li><a href="{% url 'messages:messages_inbox' %} ">&raquo;&nbsp;{% trans "Inbox" %}</a></li>
+    <li><a href="{% url 'messages:messages_outbox' %} ">&raquo;&nbsp;{% trans "Sent Messages" %}</a></li>
+    <li><a href="{% url 'messages:messages_compose' %} ">&raquo;&nbsp;{% trans "New Message" %}</a></li>
+    <li><a href="{% url 'messages:messages_trash' %} ">&raquo;&nbsp;{% trans "Trash" %}</a></li>
+</ul>
+{% endblock %}

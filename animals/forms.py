@@ -1,5 +1,5 @@
 from django import forms
-from .models import Animals
+from .models import Animals, Comment
 
 
 # class AnimalCreate(forms.Form):
@@ -16,20 +16,27 @@ from .models import Animals
 class AnimalCreateForm(forms.ModelForm):
 	# category = forms.CharField(required= False, validators=[validate_category])
 	# email = forms.EmailFi.eld()
+	
 	class Meta:
 		model = Animals
 		fields =[
 		"category", 
 		"name", 
-		"age",
-		"gender",
+		"location",
+		"sex",
 		"description",
 		"photo",
+		
+		
+		
+		
 		
 		]
 
 
+class CommentForm(forms.ModelForm):
+	# text = TextField(max_length = 240, blank = False, null = False, default = "o")
 
-# class ImageUploadForm(forms.Form):
-#     """Image upload form."""
-#     image = forms.ImageField()
+	class Meta:
+		model = Comment
+		fields = ( 'text',)

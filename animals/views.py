@@ -1,12 +1,42 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django.views.generic import( View, ListView, DetailView, UpdateView, DeleteView, TemplateView, CreateView) 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import  AnimalCreateForm
-from .models import Animals
+from .models import Animals, Comment
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.views.generic.edit import FormView
+from django.contrib.auth import get_user_model
+from django.contrib.messages.views import SuccessMessageMixin
+from .forms import CommentForm
+from accounts.models import UserModel
+from django.contrib import messages
+
+User = get_user_model()
+
+
+
+def add_comment_to_post(request, slug):
+    template_name = "comment.html"
+    post = get_object_or_404(Animals, slug=slug)   
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.autor = request.user
+            comment.save()
+            messages.success(request, 'Comment succesufuly added!')
+            return redirect("/home/")
+    else:
+        form = CommentForm()
+    return render(request, template_name, {'form': form})
+
+
+
+
 
 
 
@@ -16,60 +46,71 @@ class Index(TemplateView):
 	template_name ="index.html "
 	
 
-class Home(LoginRequiredMixin, TemplateView):
-	template_name= "home.html"
+class Home(LoginRequiredMixin,  ListView):
+    template_name= "home.html"
+    queryset = Animals.objects.all()
+
+   
 
 
 
-class AnimalCreateView(LoginRequiredMixin, CreateView):
+
+class AnimalCreateView(SuccessMessageMixin,FormView, LoginRequiredMixin, CreateView):
     form_class = AnimalCreateForm
-    login_url = '/login/'
     template_name = 'form.html'
-    # success_url= "/animal/update/"
+    success_message =  'You succesufuly added animal for adoption!'
+
+    # def get_succes_message(self, cleaned_data):
+    #     print(cleaned_data)
+    #     return ("You added animal succesufuly!")
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        instance.owner = self.request.user
+        instance.autor = self.request.user
         return super(AnimalCreateView, self).form_valid(form)
+    
 
 
-# class AnimalListView(LoginRequiredMixin, ListView):
-#     template_name=" animal_list.html"
-#     def get_queryset(self):
-#         # original qs
-#         qs = Animal.objects.all()
+   
+    # def form_valid(self, form):
+    #     instance = form.save(commit=False)
+    #     instance.user = self.request.user
+    #     return super(AnimalCreateView, self).form_valid(form)
 
 
-def animals_listview(request):
-    template_name= "animal_list.html"
-    queryset = Animals.objects.all()
-    context = {"object_list": queryset
-    }
-    return render(request, template_name, context)
+
 
 class AnimalListView(LoginRequiredMixin, ListView):
-    template_name= "animal_list.html"
-
+    template_name = "animal_list.html"
     def get_queryset(self):
-        slug = self.kwargs.get("slug")
-        if slug:
-            queryset = Animals.objects.filter(
-                Q(category__contains=slug)
-                )
+        return Animals.objects.all()
 
-        else:
-            queryset = Animals.objects.none()
-        return slug
+    
+        
+        
 
+
+
+
+class MyAnimalsListView(LoginRequiredMixin, ListView):
+    context_object_name = "animal_list"
+    template_name = "my_animal_list.html"
+    # queryset = Animals.objects.filter(autor = request.User)
+    def get_queryset(self):
+        return Animals.objects.filter(autor = self.request.user)
+    
+ 
 
 class AnimalDetailView(LoginRequiredMixin, DetailView):
     template_name= "animals_detail.html"
+    model = Animals
 
-    queryset = Animals.objects.all()
+    
 
     def get_context_data(self, *args, **kwargs):
         context=super(AnimalDetailView, self).get_context_data(*args, **kwargs)
         print(context)
+        # context['object'] = UserModel.objects.all(nickname = nickname)
         return context
     
 
@@ -81,17 +122,30 @@ class AnimalDetailView(LoginRequiredMixin, DetailView):
 
 
 
-# class AnimalUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Animals
-#     fields =[
-#         "category", 
-#         "name", 
-#         "age",
-#         "gender",
-#         "description",
-#         "photo",
-#         ]
+class AnimalUpdateView(SuccessMessageMixin,LoginRequiredMixin, UpdateView):
+    form_class = AnimalCreateForm
+    login_url = '/accounts/login/'
+    template_name = 'animals_update.html'
+    success_message =  'You succesufuly updated your pet!'
+    success_url = "/animals/mylist/"
 
-class AnimalDeleteView(LoginRequiredMixin, DeleteView):
+    #success_url = "/restaurants/"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AnimalUpdateView, self).get_context_data(*args, **kwargs)
+        name = self.get_object().name
+        context['title'] = f'Update animal: {name}'
+        return context
+
+    def get_queryset(self):
+        return Animals.objects.filter(autor=self.request.user)
+
+
+
+
+class AnimalDeleteView(SuccessMessageMixin, LoginRequiredMixin,DeleteView):
+    template_name = "author_check_delete.html"
     model = Animals
-    success_url = reverse_lazy("mysite:home")
+    success_message = "You succesufuly removed animal"
+    success_url = reverse_lazy("animals:list_animals")
+    

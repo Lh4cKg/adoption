@@ -1,11 +1,19 @@
 {% include "base.html" %}
 
 {% block content %}
-<div align="center"><form action="" method="post">
+
+
+<h2 align="center"> Yoi are now logged out! </h2>
+
+ <div align="center" > <h1>Login again?</h1>
+
+
+<a href="{% url 'accounts:login' %}">LOGIN</a>
+
+ 	</div>
+  <!-- <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="login" /><br />
-    <a href='{% url "accounts:register" %}'">Register an Account</a>
-    
-</form></div>
+    <button type="submit">Login</button>
+  </form> </div> -->
 {% endblock %}

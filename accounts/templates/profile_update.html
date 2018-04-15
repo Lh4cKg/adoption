@@ -1,0 +1,16 @@
+{% include "base.html" %}
+{% if messages %}
+<div class="alert alert-success">
+    {% for m in messages %}
+    <li>{{ m }}</li> <br>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+     <button type="submit" value="Submit">Submit</button>
+  <button type="reset" value="Reset">Reset</button> <br> or <br>
+  <a href="{% url 'accounts:detail' nickname=user.nickname %}"> Back to profile </a>
+</form>

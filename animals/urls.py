@@ -1,6 +1,15 @@
-from .views import AnimalCreateView,  AnimalListView, animals_listview, AnimalDetailView
-from django.urls import path, include
-from django.urls import reverse
+from .views import(
+	AnimalCreateView,
+ 	AnimalListView,
+    AnimalDetailView, 
+    AnimalUpdateView,
+    MyAnimalsListView,
+    AnimalDeleteView,
+    add_comment_to_post
+    )
+from django.urls import path, include, reverse
+from .models import Animals
+
 
 
 
@@ -9,7 +18,14 @@ app_name= "animals"
 
 urlpatterns = [
     # path('animals/<slug>', AnimalListView.as_view(), name= "list" ),
-    path('create/', AnimalCreateView.as_view(model = "Animal",success_url="/animals/list/"), name= "create"),
-    path('list/', animals_listview),
-    path('/<int:pk>/', AnimalDetailView.as_view()),
+    path('create/', AnimalCreateView.as_view(model = "Animal",success_url="/animals/"), name= "create"),
+    path('mylist/', MyAnimalsListView.as_view(model = "Animals") , name = "list_animals"),
+    path('<slug>/update/', AnimalUpdateView.as_view(model = "Animals",success_url = "/animals/mylist/"), name = "update"),
+    path('<slug>/delete/', AnimalDeleteView.as_view() , name = "delete"),
+
+
+    path('<slug>/', AnimalDetailView.as_view(), name = "detail"),
+    # path('myanimals/', MyAnimalsListView.as_view(model = "Animals"), name="mylist"),
+    path('', AnimalListView.as_view() , name ='list'),
+    path('post/<slug>/comment/', add_comment_to_post, name='add_comment_to_post')
     ]

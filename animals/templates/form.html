@@ -1,14 +1,23 @@
 {% include "base.html" %}
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% block content %}
 {% if form.error.non_field_errors %}
 {{ form.errors.non_field_errors }}
 {% endif %}
 
-<div align="center"> <form method="POST">{% csrf_token %}
+<div align="center"> <form enctype="multipart/form-data" method="POST">{% csrf_token %}
 	
 	{{ form.as_p }}
 	<button type="submit">Save</button>
+
 
 </form>
 </div>

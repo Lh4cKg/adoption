@@ -1,1 +1,63 @@
-{{object.name}} {{object.photo}}
+{% include "base.html" %}
+{% block content %}
+
+
+
+
+<div> <ul> {% if animals.photo %}
+<img border=" 7" src="{{animals.photo.url}}" class="img-responsive" height=" 200" alt="Smiley face">
+{% else %}  
+
+<p> This animal has no picture! </p>
+
+            {% endif %}
+
+<li><h1> {{animals.name}},   <small>{{animals.category}}</small></h1> </li> 
+<li> <h2> Gender: {{animals.sex}} </h2> </li>
+<li> <h2> Location: {{animals.location}} </h2> </li>
+<li> <h2> Description:<br/> <textarea>{{animals.description}}</textarea> </h2> </li>
+
+
+<p>Added by {{ animals.autor.get_full_name }} </p>
+<p> Created at: {{animals.timestamp}}</p>
+{{ data }} <br/>
+
+
+{% if user.is_authenticated and user == animals.autor %}
+<h3> Remove animal <h3>  <a href="{% url 'animals:delete' animals.slug %}"> Delete </a> <br>
+
+<b> Make changes </b> <br> <a href="{% url 'animals:update' animals.slug %}">Here</a>
+{% endif %}
+
+
+ 
+
+
+</ul>
+</div>
+
+
+
+
+
+<a class="btn btn-default" href="{% url 'animals:add_comment_to_post' slug=animals.slug %}">Add comment</a>
+<hr>
+{% for comment in animals.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.text }}</div>
+        <strong>Commented by:<a href="{% url 'accounts:detail' nickname=comment.autor.nickname  %}"> {{ comment.autor.get_full_name }} </a></strong>
+        <small>Comment added: {{ comment.created_date }}</small>
+        <hr>
+        
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+
+<style> 
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+</style>
+
+{% endblock %}

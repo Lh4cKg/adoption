@@ -1,0 +1,50 @@
+{% include "base.html" %}
+
+{% block content %} 
+
+{% if animal_list %}
+
+
+<ul><h2> Hello {{ user.first_name  }}, this is list of animals that you added for adoption: </h2>
+
+{% for object in animal_list %}
+<div class="row" style="width:320px; left:20px; display: inline-block; margin-right: 40px;">
+  <div class="col s12 m4" style="width:100%;">
+<div class="card" style="width:300px">
+	{% if object.photo %}
+  <img class="card-img-top" src="{{ object.photo.url }}" alt="Card image">
+    	{% else %}
+    	<p> This animal has no any photos!</p>
+    	{% endif %}
+  <div class="card-body">
+    <h4 class="card-title">Name: {{ object.name }}</h4>
+    <p class="card-text">Category: {{ object.category }}</p>
+    <p class="card-text">Location: {{ object.location }}</p>
+    <p> Added by: {{ object.autor.get_full_name }} <br>
+    <a href="/animals/{{ object.slug }}/"  %}" class="btn btn-primary">More Info</a>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+{% else %}
+
+<div align=" center">
+<h3> Seems like you didnt add any animal. What are you waiting for?</h3>
+
+<a href="{% url 'animals:create' %}">
+    <button>Create animal</button>
+</a>
+</div>
+{% endif %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% endblock content %}

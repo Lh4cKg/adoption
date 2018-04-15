@@ -1,19 +1,38 @@
+
 {% include "base.html" %}
 
 {% block content %}
 
+{% include "snippets/search.html" %}
+
 {% for obj in object_list %}
 
 
-{{ obj.category }}
-{{ obj.description }}<!-- , {{ obj.age }}, {{ obj.gender }} --> 
-<!-- {% if obj.photo %}
-<img src="{{ obj.photo.url }}" alt="5" border="4" height="100"> </img>
-{% endif %} -->
+<div class="row" style="width:320px; left:20px; display: inline-block; margin-right: 40px;">
+  <div class="col s12 m4" style="width:100%;">
+<div  class="card" style="width:250px">
+	{% if obj.photo %}
+  <img class="card-img-top" src="{{ obj.photo.url }}" alt="Card image">
+    	{% else %}
+    	<p> This animal has no any photos!</p>
+    	{% endif %}
+  <div class="card-body">
+    <h4 class="card-title">Name: {{ obj.name }}</h4>
+    <p class="card-text">Category: {{ obj.category }}</p>
+    <p class="card-text">Location: {{ obj.location }}</p>
+    <p> Added by: {{ obj.autor.get_full_name }}</p> <br>
+    <a href="/animals/{{ obj.slug }}/"  %}" class="btn btn-primary">More Info</a>
+  </div>
+</div> 
+</div>
+</div>
 
-    
+
+
+
 
 
 
 {% endfor %}
+
 {% endblock content %}

@@ -1,0 +1,19 @@
+{% include "base.html" %}
+
+{% block content %}
+<div class="container">
+<h2> List of registered users: </h2>
+
+{% for object in object_list %}
+<ul>
+
+<li> <a href="{% url 'accounts:detail' nickname=object.nickname %}"> {{ object.nickname}} </a> <small>Last login: {{ object.last_login }}</small>  </li>
+
+</ul>
+{% endfor %}
+
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% include "base.html" %}
+{% block content%}
+
+<div class="container"> <h2> User Info: </h2>
+<ul>
+
+<li>Nickname: {{ user.nickname }}</li>
+<li>First name: {{ user.first_name }}</li>
+<li>Last Name: {{ user.last_name }}</li>
+<li>Location: {{ user.location }}</li>
+<li> Animals added: {{ animals|length }}</li>
+{% if user.is_authenticated and request.user == user %}
+<a href="{% url 'accounts:update' nickname=user.nickname %}"> Edit profile</a> 
+{% endif %}
+
+</ul>
+<h3> User animals: </h3>
+<ul>
+{% for obj in animals %}
+
+<a href="{% url 'animals:detail' slug=obj.slug %}"><li>{{ obj.name }}, <small>{{ obj.category }}</small></li> </a>
+
+{% empty %}
+<p> User didnt add any animal for adoption. </p>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

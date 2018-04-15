@@ -14,9 +14,10 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# LOGIN_URL="/accounts/login/"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_URL="/accounts/login/"
 LOGIN_REDIRECT_URL="/home/"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -28,12 +29,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#////////////////AUTHORIZATION////////////////////////////
+AUTH_USER_MODEL = 'accounts.UserModel'
+AUTHENTICATION_BACKENDS = ('accounts.backends.MyAuthBackend','django.contrib.auth.backends.ModelBackend',)
+#////////////////////////////////////////////////////////////
+ALLOWED_HOSTS = ['192.168.1.134',"127.0.0.1"]
 
-
-
-
-ALLOWED_HOSTS = []
-LOGIN_URL = '/login/'
 
 
 # Application definition
@@ -47,9 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "animals",
     "accounts",
+    "django_messages",
+    'django.contrib.sites'
+    ,
 
 ]
-
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -90,10 +95,12 @@ MEDIA_URL = '/media/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'test',                            # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.                 # Not used with sqlite3.
+        'NAME': 'adoption',                            # Or path to database file if using sqlite3.
+        'USER': 'zarko',                      # Not used with sqlite3.                 # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'PORT': '',
+        'PASSWORD':'password'
+        # 'OPTIONS': {""}                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -146,6 +153,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 # # Configure Django App for Heroku.
 # import dj_database_url

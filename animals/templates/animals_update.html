@@ -1,0 +1,20 @@
+{% include "base.html" %}
+{% block content %}
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3'>
+
+<h1>{{ form.instance.title }} <small> {{ form.instance.category }}</small></h1>
+<p>{{ form.instance.location }}</p>
+<p>{{ form.instance.timestamp }}, Updated {{ form.instance.updated|timesince }} ago</p>
+
+<hr/>
+
+{{title}}
+
+<h3>Make Changes</h3>
+{% include 'snippets/form_snippet.html' with form=form %}
+
+
+</div>
+</div>
+{% endblock %}
