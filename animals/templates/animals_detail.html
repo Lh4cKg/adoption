@@ -22,7 +22,9 @@
 <p> Created at: {{animals.timestamp}}</p>
 {{ data }} <br/>
 
-
+{% if user.is_authenticated %}
+<p><a href="{% url 'messages:messages_compose_to' recipient=animals.autor.email %}"> Ask for adoptin   </p>
+	{% endif %}
 {% if user.is_authenticated and user == animals.autor %}
 <h3> Remove animal <h3>  <a href="{% url 'animals:delete' animals.slug %}"> Delete </a> <br>
 

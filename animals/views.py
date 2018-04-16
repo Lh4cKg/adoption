@@ -112,9 +112,8 @@ class AnimalDetailView(LoginRequiredMixin, DetailView):
         print(context)
         # context['object'] = UserModel.objects.all(nickname = nickname)
         return context
-    
 
-
+  
 
 
 

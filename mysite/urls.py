@@ -19,6 +19,7 @@ urlpatterns = [
     path('animals/', include("animals.urls")),
     path('accounts/',include("accounts.urls") ),
     path('messages/',include('django_messages.urls')),
+    path('adopt/',include('requestadopt.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
