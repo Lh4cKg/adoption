@@ -15,7 +15,7 @@ div {
 }
 </style>
 
-{% include "snippets/nav.html" %}
+{% include "animals/snippets/nav.html" %}
 {% if user.is_authenticated%}
 <p align="center" class="bg-success text-white"> Hello {{ request.user.first_name }}<br>Your nickname is {{ request.user.nickname }}.  </p> <hr>
 {% endif %}

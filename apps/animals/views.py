@@ -36,7 +36,7 @@ def add_comment_to_post(request, slug):
 
 class AnimalCreateView(SuccessMessageMixin, FormView, LoginRequiredMixin, CreateView):
     form_class = AnimalCreateForm
-    template_name = 'form.html'
+    template_name = 'animals/form.html'
     success_message = 'You succesufuly added animal for adoption!'
 
     # def get_succes_message(self, cleaned_data):
@@ -55,7 +55,7 @@ class AnimalCreateView(SuccessMessageMixin, FormView, LoginRequiredMixin, Create
 
 
 class AnimalListView(LoginRequiredMixin, ListView):
-    template_name = "animal_list.html"
+    template_name = "animals/animal_list.html"
 
     def get_queryset(self):
         return Animals.objects.all()
@@ -63,7 +63,7 @@ class AnimalListView(LoginRequiredMixin, ListView):
 
 class MyAnimalsListView(LoginRequiredMixin, ListView):
     context_object_name = "animal_list"
-    template_name = "my_animal_list.html"
+    template_name = "animals/my_animal_list.html"
 
     # queryset = Animals.objects.filter(autor = request.User)
     def get_queryset(self):
@@ -71,7 +71,7 @@ class MyAnimalsListView(LoginRequiredMixin, ListView):
 
 
 class AnimalDetailView(LoginRequiredMixin, DetailView):
-    template_name = "animals_detail.html"
+    template_name = "animals/animals_detail.html"
     model = Animals
 
     def get_context_data(self, *args, **kwargs):
@@ -84,7 +84,7 @@ class AnimalDetailView(LoginRequiredMixin, DetailView):
 class AnimalUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = AnimalCreateForm
     login_url = '/accounts/login/'
-    template_name = 'animals_update.html'
+    template_name = 'animals/animals_update.html'
     success_message = 'You succesufuly updated your pet!'
     success_url = "/animals/mylist/"
 
@@ -101,7 +101,7 @@ class AnimalUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 
 class AnimalDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
-    template_name = "author_check_delete.html"
+    template_name = "animals/author_check_delete.html"
     model = Animals
     success_message = "You succesufuly removed animal"
     success_url = reverse_lazy("animals:list_animals")

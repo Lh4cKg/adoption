@@ -11,5 +11,5 @@ class Index(TemplateView):
 
 
 class Home(LoginRequiredMixin, ListView):
-    template_name = "home.html"
+    template_name = "animals/home.html"
     queryset = Animals.objects.all()

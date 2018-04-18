@@ -35,7 +35,7 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form': form})
 
 
 def user_profile(request, nickname):
@@ -53,7 +53,7 @@ class UserList(ListView):
 
 
 class ProfileDetail(DetailView):
-    template_name = "profile.html"
+    template_name = "accounts/profile.html"
 
     model = UserModel
 
@@ -65,7 +65,7 @@ class ProfileDetail(DetailView):
 
 
 class ProfileUpdate(SuccessMessageMixin, FormView, LoginRequiredMixin, UpdateView):
-    template_name = "profile_update.html"
+    template_name = "accounts/profile_update.html"
     model = UserModel
     succes_message = "Profile Updated!"
     form_class = UpdateProfile
@@ -82,7 +82,7 @@ class ProfileUpdate(SuccessMessageMixin, FormView, LoginRequiredMixin, UpdateVie
 
 
 class ProfileDetailView(DetailView):
-    template_name = "profile.html"
+    template_name = "accounts/profile.html"
 
     def get_object(self):
         nickname = self.kwargs.get("nickname")
