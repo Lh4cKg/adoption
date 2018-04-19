@@ -26,6 +26,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'SOME+RANDOM+KEY(z9+3vnm(jb0u@&w68t#5_
 
 DEBUG = True
 
+LOGIN_REDIRECT_URL = 'home'
+
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    
 ]
 
 
@@ -48,6 +51,7 @@ OUR_APPS = [
     'apps.home',
     'apps.animals',
     'apps.accounts',
+    
 ]
 
 # third party apps
@@ -165,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
 
 
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/home/"
+# LOGIN_REDIRECT_URL = "/home/"
 
 
 # logging configuration

@@ -13,6 +13,7 @@ from django.contrib.auth import logout, login
 from ..animals.models import Animals
 
 
+
 class Profile(SingleObjectMixin):
     model = UserModel
 

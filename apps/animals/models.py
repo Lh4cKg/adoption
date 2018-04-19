@@ -11,14 +11,13 @@ from ..accounts.models import UserModel
 class Animals(models.Model):
     DOG = "dog"
     CAT = "cat"
-    SNAKE = "snake"
-    MALE = "male"
-    FEMALE = "female"
+    MALE = "m"
+    FEMALE = "f"
 
     ANIMAL_CHOICES = (
         (DOG, 'Dog'),
         (CAT, 'Cat'),
-        (SNAKE, 'Snake')
+        
     )
 
     GENDER_CHOICES = (
@@ -36,7 +35,7 @@ class Animals(models.Model):
     photo = models.ImageField("photo", upload_to="media/", null=False, blank=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=True, blank=True)
-    autor = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
