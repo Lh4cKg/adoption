@@ -38,6 +38,7 @@ class AnimalCreateView(SuccessMessageMixin, FormView, LoginRequiredMixin, Create
     form_class = AnimalCreateForm
     template_name = 'animals/form.html'
     success_message = 'You succesufuly added animal for adoption!'
+    model = Animals
 
     # def get_succes_message(self, cleaned_data):
     #     print(cleaned_data)

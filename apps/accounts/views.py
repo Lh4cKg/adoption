@@ -39,9 +39,10 @@ def signup(request):
 
 
 def user_profile(request, nickname):
-    template_name = "profile.html"
+    template_name = "accounts/profile.html"
 
-    user = UserModel.objects.get(nickname=nickname)
+    # user = UserModel.objects.get(nickname=nickname) # it is wrong or using filter
+    user = get_object_or_404(UserModel, nickname=nickname)
     animals = Animals.objects.filter(autor=user)
     context = {"user": user, "animals": animals}
     return render(request, template_name, context)

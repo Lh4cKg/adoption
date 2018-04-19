@@ -7,7 +7,7 @@ from ..animals.models import Animals
 class Index(TemplateView):
     login_url = "/login/"
     redirect_field_name = '/about/'
-    template_name = "temp/index.html"
+    template_name = "index.html"
 
 
 class Home(LoginRequiredMixin, ListView):

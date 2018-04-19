@@ -5,8 +5,8 @@ from .views import (AnimalCreateView, AnimalListView, AnimalDetailView, AnimalUp
 app_name = "animals"
 
 urlpatterns = [
-    # path('animals/<slug>', AnimalListView.as_view(), name= "list" ),
-    path('create/', AnimalCreateView.as_view(model="Animal", success_url="/animals/"), name="create"),
+    path('animals/', AnimalListView.as_view(), name= "list" ),
+    path('create/', AnimalCreateView.as_view(success_url="/animals/"), name="create"),
     path('mylist/', MyAnimalsListView.as_view(model="Animals"), name="list_animals"),
     path('<slug>/update/', AnimalUpdateView.as_view(model="Animals", success_url="/animals/mylist/"), name="update"),
     path('<slug>/delete/', AnimalDeleteView.as_view(), name="delete"),
