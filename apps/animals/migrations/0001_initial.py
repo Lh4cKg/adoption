@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('text', models.TextField(max_length=300)),
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('approved_comment', models.BooleanField(default=False)),
-                ('autor', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('author', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='animals.Animals')),
             ],
         ),

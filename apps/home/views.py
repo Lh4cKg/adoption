@@ -6,10 +6,7 @@ from ..animals.models import Animals
 
 class Index(TemplateView):
     login_url = "/login/"
-<<<<<<< HEAD
     redirect_field_name = '/about/'
-=======
->>>>>>> 7ee03d8301d5bb5a548113273c33f6bd5829feaf
     template_name = "index.html"
 
 

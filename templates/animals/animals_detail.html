@@ -18,14 +18,14 @@
 <li> <h2> Description:<br/> <textarea>{{animals.description}}</textarea> </h2> </li>
 
 
-<p>Added by {{ animals.autor.get_full_name }} </p>
+<p>Added by {{ animals.author.get_full_name }} </p>
 <p> Created at: {{animals.timestamp}}</p>
 {{ data }} <br/>
 
 {% if user.is_authenticated %}
-<p><a href="{% url 'messages:messages_compose_to' recipient=animals.autor.email %}"> Ask for adoptin   </p>
+<p><a href="{% url 'messages:messages_compose_to' recipient=animals.author.email %}"> Ask for adoptin   </p>
 	{% endif %}
-{% if user.is_authenticated and user == animals.autor %}
+{% if user.is_authenticated and user == animals.author %}
 <h3> Remove animal <h3>  <a href="{% url 'animals:delete' animals.slug %}"> Delete </a> <br>
 
 <b> Make changes </b> <br> <a href="{% url 'animals:update' animals.slug %}">Here</a>
@@ -47,7 +47,7 @@
 {% for comment in animals.comments.all %}
     <div class="comment">
         <div class="date">{{ comment.text }}</div>
-        <strong>Commented by:<a href="{% url 'accounts:detail' nickname=comment.autor.nickname  %}"> {{ comment.autor.get_full_name }} </a></strong>
+        <strong>Commented by:<a href="{% url 'accounts:detail' nickname=comment.author.nickname  %}"> {{ comment.author.get_full_name }} </a></strong>
         <small>Comment added: {{ comment.created_date }}</small>
         <hr>
         

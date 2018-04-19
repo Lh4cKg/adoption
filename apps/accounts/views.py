@@ -13,14 +13,14 @@ from django.contrib.auth import logout, login
 from ..animals.models import Animals
 
 
-
 class Profile(SingleObjectMixin):
     model = UserModel
 
     def get_object(self):
         try:
             return self.request.user.get_profile()
-        except Profile.DoesNotExist:
+            # return queryset.get_profile()
+        except self.model.DoesNotExist:
             raise NotImplemented(" note implemented user")
 
 
@@ -44,7 +44,7 @@ def user_profile(request, nickname):
 
     # user = UserModel.objects.get(nickname=nickname) # it is wrong or using filter
     user = get_object_or_404(UserModel, nickname=nickname)
-    animals = Animals.objects.filter(autor=user)
+    animals = Animals.objects.filter(author=user)
     context = {"user": user, "animals": animals}
     return render(request, template_name, context)
 

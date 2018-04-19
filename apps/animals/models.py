@@ -66,7 +66,7 @@ pre_save.connect(animal_pre_save_receiver, sender=Animals)
 class Comment(models.Model):
     text = models.TextField(max_length=300, blank=False, null=False)
     post = models.ForeignKey('animals.Animals', related_name='comments', on_delete=models.CASCADE)
-    autor = models.ForeignKey("accounts.UserModel", on_delete=models.CASCADE, default=1)
+    author = models.ForeignKey("accounts.UserModel", on_delete=models.CASCADE, default=1)
     created_date = models.DateTimeField(auto_now_add=True)
     approved_comment = models.BooleanField(default=False)
 

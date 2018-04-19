@@ -25,7 +25,7 @@ def add_comment_to_post(request, slug):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.autor = request.user
+            comment.author = request.user
             comment.save()
             messages.success(request, 'Comment succesufuly added!')
             return redirect("/home/")
@@ -46,7 +46,7 @@ class AnimalCreateView(SuccessMessageMixin, FormView, LoginRequiredMixin, Create
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        instance.autor = self.request.user
+        instance.author = self.request.user
         return super(AnimalCreateView, self).form_valid(form)
 
     # def form_valid(self, form):
@@ -68,7 +68,7 @@ class MyAnimalsListView(LoginRequiredMixin, ListView):
 
     # queryset = Animals.objects.filter(autor = request.User)
     def get_queryset(self):
-        return Animals.objects.filter(autor=self.request.user)
+        return Animals.objects.filter(author=self.request.user)
 
 
 class AnimalDetailView(LoginRequiredMixin, DetailView):
@@ -98,7 +98,7 @@ class AnimalUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return context
 
     def get_queryset(self):
-        return Animals.objects.filter(autor=self.request.user)
+        return Animals.objects.filter(author=self.request.user)
 
 
 class AnimalDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
